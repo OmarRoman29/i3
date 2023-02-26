@@ -1,0 +1,209 @@
+# General
+set $mod Mod4
+font pango: Hack Nerd Font Mono 8
+for_window [class="^.*"] border pixel 1
+gaps inner 8
+gaps outer 5
+
+#autostart
+exec_always --no-startup-id ~/.config/polybar/launch.sh
+exec_always --no-startup-id xrandr --output HDMI-A-0 --primary
+exec_always --no-startup-id lxsession
+
+# --- Keys ---
+#volume 
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+# Media player controls
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioPause exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+#Mouse+$mod to drag floating windows
+floating_modifier $mod
+
+# start a terminal
+# bindsym $mod+Return exec --no-startup-id alacritty --config-file /home/rubenor/Documents/alacrittyConf/prueba.yml
+bindsym $mod+Return exec --no-startup-id alacritty
+
+#kill focused window
+bindsym $mod+Shift+q kill
+
+#Rofi
+# bindsym $mod+d exec --no-startup-id rofi -modi drun -show drun -show-icons
+bindsym $mod+d exec --no-startup-id ~/.config/rofi/launchers/type-6/launcher.sh
+
+#Change Focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+#Change focus (cursor keys)
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+#Move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+#Move focused window (cursor keys)
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+#Split in horizontal orientation
+bindsym $mod+b split h
+
+#Split in vertical orientation
+bindsym $mod+v split v
+
+#Full screen mode
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+g focus mode_toggle
+
+#Focus the parent container
+bindsym $mod+a focus parent
+
+# if you want to display specified workstations on specific monitors uncomment the below entries
+# and adapt to your setup.
+#set $fm eDP1
+#set $sm DP-2
+
+# Assign workspaces to specific monitors. Uncomment variables at top of file plus the below
+# to use this feature
+#workspace 1 output $fm
+#workspace 2 output $fm
+#workspace 3 output $fm
+#workspace 4 output $fm
+#workspace 5 output $fm
+#workspace 6 output $sm
+#workspace 7 output $sm
+#workspace 8 output $sm
+#workspace 9 output $sm
+#workspace 10 output $sm
+
+# Define names for default workspaces
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+# switch to workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+# move focused container to workspace and follow
+bindsym $mod+Control+1 move container to workspace number $ws1; workspace number $ws1
+bindsym $mod+Control+2 move container to workspace number $ws2; workspace number $ws2
+bindsym $mod+Control+3 move container to workspace number $ws3; workspace number $ws3
+bindsym $mod+Control+4 move container to workspace number $ws4; workspace number $ws4
+bindsym $mod+Control+5 move container to workspace number $ws5; workspace number $ws5
+bindsym $mod+Control+6 move container to workspace number $ws6; workspace number $ws6
+bindsym $mod+Control+7 move container to workspace number $ws7; workspace number $ws7
+bindsym $mod+Control+8 move container to workspace number $ws8; workspace number $ws8
+bindsym $mod+Control+9 move container to workspace number $ws9; workspace number $ws9
+bindsym $mod+Control+0 move container to workspace number $ws10; workspace number $ws10
+
+# scratchpads
+for_window [instance="scratchpad"] move window to scratchpad, scratchpad show
+
+# start apps in terminal and allocate them to scratchpads
+bindsym Mod1+s exec --no-startup-id alacritty --class scratchpad
+bindsym Mod1+r exec --no-startup-id alacritty --class scratchpad -e ranger
+bindsym Mod1+n exec --no-startup-id alacritty --class scratchpad -e nvim
+bindsym Mod1+m exec --no-startup-id alacritty --class scratchpad -e mocp
+bindsym Mod1+h exec --no-startup-id alacritty --class scratchpad -e htop
+
+# send any app to a scratchpad
+bindsym $mod+Shift+BackSpace move scratchpad
+
+# toggle scratchpads
+bindsym $mod+backslash scratchpad show
+
+# custom keybindings
+bindsym $mod+Mod1+b exec --no-startup-id brave
+bindsym $mod+Mod1+f exec --no-startup-id pcmanfm
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec i3-msg exit
+
+# resize window (you can also use the mouse for that)
+bindsym $mod+Ctrl+Right resize shrink width 3 px or 3 ppt
+bindsym $mod+Ctrl+Up resize grow height 3 px or 3 ppt
+bindsym $mod+Ctrl+Down resize shrink height 3 or 3 ppt
+bindsym $mod+Ctrl+Left resize grow width 3 px or 3 ppt
+
+# resize window with hjkl
+bindsym $mod+Ctrl+h resize shrink width 3 px or 3 ppt
+bindsym $mod+Ctrl+j resize grow height 3 px or 3 ppt
+bindsym $mod+Ctrl+k resize shrink height 3 or 3 ppt
+bindsym $mod+Ctrl+l resize grow width 3 px or 3 ppt
+
+#For color border only if there's more than 1 window
+smart_borders on
+
+# class                 border  backgr. text    indicator child_border
+client.focused          #4c566a  #4c566a  #eceff4 #C70039   #fb4934
+client.focused_inactive #3b4252  #3b4252  #eceff4 #4c566a   #282828
+client.unfocused        #2e3440  #2e3440  #eceff4 #2e3440   #2e3440 
+client.urgent           #bf616a  #bf616a  #2e3440 #d08770   #bf616a
+client.placeholder      #000000  #0c0c0c  #0b6b5b #000000   #0c0c0c
+
+client.background       #282828
+
+#bar {
+
+#}
+
